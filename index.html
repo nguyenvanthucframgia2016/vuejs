@@ -3,18 +3,42 @@
 <head>
     <meta charset="utf-8" />
     <title>Vue tutorial</title>
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
 </head>
 <body>
-    <div class="app">
-        {{ messages }}
+    <div class="app container">
+        {{ messages | lcfirst }}
+        <p v-once>{{ v_once }}</p>
+        <input type="text" v-model="name" :disabled="disabled" v-bind:placeholder="placeHolder" class="form-control" v-bind:id="id">
+        <a v-bind:href="url" @click.prevent="events()">{{ url }}</a>
     </div>
 
     <script type="text/javascript">
         var app = new Vue({
             el: '.app',
             data: {
-                messages: 'Hello world'
+                messages: 'Hello world',
+                v_once: 'variable is constance',
+                disabled: false,
+                name: '',
+                placeHolder: 'Name',
+                id: 100,
+                url: 'http://google.com'
+            },
+            methods: {
+                events: function () {
+                    console.log('Event');
+                }
+            },
+            filters: {
+                lcfirst: function (value) {
+                    if (!value) {
+                        return;
+                    }
+
+                    return value.charAt(0).toLowerCase() + value.slice(1);
+                }
             }
         });
     </script>
