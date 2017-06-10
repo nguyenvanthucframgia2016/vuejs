@@ -8,13 +8,36 @@
 <body>
     <div class="app">
         {{ messages }}
+        <div v-bind:class="{'text-danger': hasError}">
+            Class binding object 1
+        </div>
+        <div :class="classObj">
+            Class binding object 2
+        </div>
+        <div v-bind:class="[active]">
+            Class binding array
+        </div>
+        <div :class="[{'text-danger': hasError}, active]">
+
+        </div>
+        <div>
+            <p :style="{fontSize: size + 'px', color: color}">Style</p>
+        </div>
     </div>
 
     <script type="text/javascript">
         var app = new Vue({
             el: '.app',
             data: {
-                messages: 'Hello world'
+                messages: 'Hello world',
+                active: 'active',
+                hasError: true,
+                classObj: {
+                    active: true,
+                    'text-danger': true
+                },
+                size: 40,
+                color: 'red'
             }
         });
     </script>
